@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Economic & Demographic Drivers Mode</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link rel="stylesheet" href="css/Q1.css" />
+    <script src="js/Q1.js" defer></script>
+    <style></style>
+  </head>
+  <body>
+    <div class="header">
+      <h1 class="main-title">Economic & Demographic Drivers</h1>
+      <p>
+        Defaults: Choropleth by GDP Growth, Bubble Size by Consumption, Bubble
+        Color by Income Group
+      </p>
+    </div>
+
+    <div class="controls">
+      <div class="control-row">
+        <div class="control-group">
+          <label for="metricSelect">Choropleth Metric:</label>
+          <select id="metricSelect">
+            <option value="gdp_per_capita">GDP per Capita</option>
+            <option value="pct_urban_population">Urbanization Rate</option>
+            <option value="population">Population</option>
+            <option value="gdp">GDP</option>
+          </select>
+        </div>
+        <div class="control-group slider-group">
+          <label for="yearSlider" class="slider-label">Year:</label>
+          <input
+            type="range"
+            id="yearSlider"
+            class="styled-slider"
+            min="1993"
+            max="2023"
+            step="1"
+            value="1993"
+          />
+          <span id="yearLabel" class="slider-value-bubble">1993</span>
+        </div>
+        <div class="control-group">
+          <label for="regionSelect">Select Region:</label>
+          <select id="regionSelect"></select>
+        </div>
+      </div>
+      <div class="control-row">
+        <div class="control-group">
+          <input type="checkbox" id="showConsumption" checked />
+          <label for="showConsumption">Show Consumption Metric</label>
+        </div>
+        <div class="control-group" id="consumptionGroup">
+          <label for="consumptionSelect">Consumption Metric:</label>
+          <select id="consumptionSelect">
+            <option value="primary_energy_consumption" selected>
+              Primary Consumption
+            </option>
+            <option value="energy_per_capita">Per-Capita Consumption</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <input type="checkbox" id="showIncome" checked />
+          <label for="showIncome">Show Income Category</label>
+        </div>
+      </div>
+    </div>
+
+    <div id="mapDiv" style="width: 100%; height: 600px"></div>
+
+    <div
+      id="scatterChart"
+      style="width: 100%; height: 400px; margin-top: 20px"
+    ></div>
+    <div
+      id="lineChart"
+      style="width: 100%; height: 400px; margin-top: 20px"
+    ></div>
+    <div
+      id="firstMetricLineChart"
+      style="width: 100%; height: 400px; margin-top: 20px"
+    ></div>
+  </body>
+</html>

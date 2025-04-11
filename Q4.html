@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Q4 Visual Design</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="js/Q4.js" defer></script>
+    <link rel="stylesheet" href="css/Q4.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <h3>
+      How does the growth in country wealth (GDP per capita) to improvements in
+      energy access, including electricity access and clean fuel access for
+      cooking?
+    </h3>
+
+    <div class="controls-container">
+      <div class="form-group">
+        <label for="fuelTypeSelect">Choose Story:</label>
+        <select id="fuelTypeSelect">
+          <option value="electricity" selected>Electricity Access</option>
+          <option value="clean_fuel">Clean Fuel Access</option>
+        </select>
+      </div>
+
+      <div class="form-group slider-group">
+        <button for="yearSlider" class="year-label">Year:</button>
+        <input
+          type="range"
+          id="mapYearSlider"
+          class="year-slider"
+          min="1993"
+          max="2023"
+          step="1"
+          value="1993"
+        />
+        <span id="mapYearLabel" class="year-display">1993</span>
+      </div>
+
+      <div class="form-group">
+        <label for="regionSelect">Region:</label>
+        <select id="regionSelect"></select>
+      </div>
+
+      <div class="form-group">
+        <input type="checkbox" id="bubbleSizeToggle" />
+        <label for="bubbleSizeToggle">Show Bubble Overlay</label>
+        <select id="bubbleMetricSelect" style="display: none">
+          <option value="gdp" data-scale="0.0001">GDP</option>
+          <option value="gdp_per_capita" data-scale="0.25">
+            GDP Per Capita
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Show Overview:</label>
+        <input type="radio" name="overviewOption" value="yes" />
+        <label>Yes</label>
+        <input type="radio" name="overviewOption" value="no" checked />
+        <label>No</label>
+      </div>
+    </div>
+
+    <div id="incomeLegend"></div>
+
+    <div id="mainContainer">
+      <div id="choroplethMap"></div>
+      <div id="detailCardContainer">
+        <div class="detail-card">
+          <div id="detailTextContainer">
+            <h2 id="detailCountryName">Country Name</h2>
+            <p id="detailRegion">Region: ...</p>
+            <p id="detailSubregion">Subregion: ...</p>
+            <p id="detailIncomeGroup">Income Group: ...</p>
+            <p id="detailGDP">GDP (in million USD): ...</p>
+            <p id="detailPopulation">Population: ...</p>
+          </div>
+          <div class="ring-charts">
+            <div class="ring-chart-container">
+              <div id="ringChartElectricity" class="ring-chart"></div>
+              <p class="ring-chart-label">Access to Electricity</p>
+            </div>
+            <div class="ring-chart-container">
+              <div id="ringChartCleanCooking" class="ring-chart"></div>
+              <p class="ring-chart-label">Access to Clean Cooking</p>
+            </div>
+            <div class="ring-chart-container">
+              <div id="ringChartRenewable" class="ring-chart"></div>
+              <p class="ring-chart-label">Renewable Energy</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="overviewPanel">
+      <div class="controls">
+        <div class="form-group slider-group">
+          <label for="overviewYearSlider">Year:</label>
+          <input
+            type="range"
+            id="overviewYearSlider"
+            min="1993"
+            max="2023"
+            step="1"
+            value="2000"
+          />
+          <span id="overviewYearLabel">2000</span>
+        </div>
+      </div>
+      <div id="overviewCharts"></div>
+      <div id="barChart" style="width: 100%; height: 400px"></div>
+      <div id="facetedPieCharts"></div>
+      <div id="incomeLegend"></div>
+
+      <div id="scatterElectricity" style="width: 100%; height: 400px"></div>
+      <div id="scatterCleanFuel" style="width: 100%; height: 400px"></div>
+    </div>
+
+    <script></script>
+  </body>
+</html>

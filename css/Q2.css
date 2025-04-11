@@ -1,0 +1,141 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+  }
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  .control-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+  .control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .control-group label {
+    font-weight: 500;
+    min-width: 120px;
+  }
+  .control-group select,
+  .control-group input[type="range"] {
+    padding: 0.3rem 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    outline: none;
+  }
+  /* Custom slider styling */
+  .styled-slider {
+    width: 200px;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    margin: 0;
+  }
+  .styled-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #4285f4;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  }
+  .styled-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #4285f4;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  }
+  .slider-label {
+    background-color: #3971cc;
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .slider-value-bubble {
+    background-color: #e6e6e6;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    min-width: 40px;
+    text-align: center;
+  }
+  .slider-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .year-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row;
+  }
+  .year-label {
+    padding: 6px 12px;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: default;
+  }
+  .year-slider {
+    flex: 1;
+    max-width: 200px;
+  }
+  .year-display {
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: #e8e8e8;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    color: #333;
+    cursor: default;
+  }
+  /* Detail card container styling */
+  #detailCard {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    background-color: #f9f9f9;
+    position: relative;
+  }
+  #detailCard button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  #multiStackAreaContainer {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping to next row */
+    gap: 10px; /* Some horizontal/vertical spacing between charts */
+  }
+
+  .facetChart {
+    flex: 1 1 48%; /* 48% width, flexible box sizing */
+    max-width: 48%;
+    min-width: 300px; /* optional minimum width so charts don't get too narrow */
+    height: 400px;
+    margin-bottom: 20px;
+  }

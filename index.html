@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Visualization Overview</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        padding: 2rem;
+        background: #f2f4f8;
+        color: #333;
+      }
+
+      .accordion {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .accordion-header {
+        background: #2d6cdf;
+        color: white;
+        padding: 1rem;
+        cursor: pointer;
+        font-size: 1.1rem;
+        border-radius: 8px 8px 0 0;
+      }
+      .button-group {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .button-group a {
+        text-decoration: none;
+        margin: 0 1rem;
+      }
+
+      .button-group button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .accordion-content {
+        display: none;
+        padding: 1rem 1.5rem;
+        border-top: 1px solid #ddd;
+        background: #fff;
+      }
+
+      .accordion.active .accordion-content {
+        display: block;
+      }
+
+      .accordion h3 {
+        margin-top: 1.2rem;
+        margin-bottom: 0.4rem;
+        color: #2d6cdf;
+      }
+
+      ul {
+        margin-left: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="align-items: center;text-align: center;color: #2d6cdf;">Visualization Documentation</h1>
+    <p style="font-weight: bold;">
+        This document provides an overview of the visualizations created for the related questions. Each section includes a brief description of the design and data loading, as well as instructions on how the design controls, interactions, and the effects of dropdowns and checkboxes work.
+    </p>
+    <p style="font-weight: bold;">
+Please click on the button to view view and interact with the visual design and if you want to view description and instruction please click on the blue accordion    </p>
+<p style="font-weight: bold;color: red;"> Please wait a moment before the visual design work as it uses API to load and fetch data from github. If you have issue in viewing the visual design because of the data issue, please refer to the read ma file attached in this submission</p>
+
+    
+
+
+    <div class="button-group">
+      <a href="Q1.html"><button>Click to view visual design 1 (Q1)</button></a>
+      <a href="Q2.html"><button>Click to view visual design 2 (Q2)</button></a>
+      <a href="Q3.html"><button>Click to view visual design 3 (Q3)</button></a>
+      <a href="Q4.html"><button>Click to view visual design 4 (Q4)</button></a>
+    </div>
+
+    <!-- Q1 Accordion -->
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        Q1 – Design Overview (click to view design description)
+      </div>
+      <div class="accordion-content">
+        <h3> How have energy consumption and CO₂ emissions evolved across regions with rising urbanization and GDP, and does a shift in energy mix indicate mitigation? </h3>
+        <p>
+          This visualization explores how GDP, urbanization, and population
+          relate to energy consumption and emissions.
+        </p>
+
+        <h3>1. Data Loading</h3>
+        <ul>
+          <li>
+            CSV data is loaded using <code>d3.csv</code> and parsed into
+            <code>rawData</code>, those columns like year, gdp, co2, etc. will
+            be converted into numeric values.
+          </li>
+        </ul>
+
+        <h3>2. Controls & Interaction</h3>
+        <ul>
+          <li>A year slider (yearSlider) to pick a year between 1993–2022.</li>
+          <li>
+            Region Dropdown: Lets users filter the dataset by geographic level:
+            globally, by continent (mapped to subregions), or by specific
+            subregions. This changes the scope for the map, scatter plot, and
+            line charts accordingly.
+          </li>
+          <li>
+            Then user can select an environmental metric dropdown to pick
+            includes CO₂, CO₂ per capita, methane, methane per capita, and
+            shared global CO₂; this will be the encoded colors of the map as a
+            choropleth.
+          </li>
+          <li>
+            Optional metrics, when displayed, depend on user choice. If the user
+            ticks on the show consumption checkbox, then a drop-down values
+            display allows the user to pick whether the bubble overlay on the
+            map shows a consumption metric (Primary vs. Per-Capita) for bubble
+            size.
+          </li>
+          <li>
+            Another optional metric will be the bubble color encoding as an
+            extra channel; if the user ticks on the check box, then a drop-down
+            appears that allows the user to pick the economic metric (GDP, GDP
+            per capita, or Urbanization) for bubble color.
+          </li>
+        </ul>
+
+        <h3>3. Map & Bubbles and overview interation:</h3>
+        <ul>
+          <li>
+            When the user selects a region on the drop-down from the region
+            label, then depending on how global, region, or subregion mode, the
+            corresponding filtered data is shown.
+          </li>
+          <li>
+             Logic of filtering / “Modes”The code checks your
+            selected region. If “Global,” it uses all countries. If a continent,
+            it uses subregions. If a subregion, it uses only that subregion.
+          </li>
+          <li>The code sets centerInfo for the map so the map can recenter.</li>
+          <li>
+            Each chart’s data is then re-filtered or regrouped based on the same
+            region mode.
+          </li>
+          <li>
+            A choropleth map will be zoomed into that region, subregion with
+            another part of the map will be whiteed out; this is the focus mode.
+            Then, the panel below provides an overview of basic visual design
+            with the corresponding mode.
+          </li>
+          <li>
+            A bubble trace, the bubble size is scaled based on “consumption
+            metric,” color is from economic metric (GDP, GDP Per Capita,
+            Urbanization rate). When the user clicks on any country, a detail
+            card about that country appears, showing information about the
+            overtime trend with a combined bar + line chart of environmental
+            metrics and a showDetailCard(record) for that country.
+          </li>
+
+          <li>
+            Scatter Chart (#1): The relationship between consumption and GDP of
+            region or country depends on which region mode user selected. Points
+            are colored by the environmental bin functions from environmental
+            metrict.
+          </li>
+          <li>
+            Scatter Chart (#2): The relationship between consumption per capita
+            and environmental metric per capita of region or country depends on
+            which region mode the user selected. Points are color-binned by the
+            economic metric with the same bin as the choropleth map, your bubble
+            color bins.
+          </li>
+          <li>
+            Line Chart (#1): Show the selected environmental metric trend over a
+            period of time from 1993 to 2022. The filtering logic for this line
+            is below: If “Global” is selected, it groups by continent. If a
+            continent is selected, it shows a line for the entire region plus
+            lines for each subregion. If a subregion is selected, it shows lines
+            for each country.
+          </li>
+          <li>
+            Line Chart (#2): This line chart is similar to the above line chart,
+            but for the consumption metric (Primary vs. Per-Capita). Also
+            displayed from 1993–2022, with same grouping logic
+          </li>
+          <li>
+            Multi-Stacked-Area: There is an area that contains a small multiple
+            or faceted stacked area chart that offers information about the
+            energy type consumption, allowing an exploration of the energy
+            shifting process. After the data is filtered based on mode, they
+            will be grouped, and for each group, it creates a separate stacked
+            area chart showing “Coal, Oil, Gas, Nuclear, Renewables, Other
+            Renewables.”
+          </li>
+        </ul>
+        <h3>4. Dropdown / Checkbox Effects</h3>
+        <ul>
+          <li>
+            Environment metric: sets which environmental metric is used on the
+            map’s choropleth, as well as on the first time-series line chart.
+          </li>
+          <li>
+            Economic metric (bubble color): sets which economic metric is used
+            to color bubbles on the map and the second scatter chart.
+          </li>
+          <li>
+            Consumption metric (bubble size) + “Show Consumption Metric”
+            checkbox: picks which consumption metric is used for bubble sizes,
+            as well as the second line chart.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        Q2 – Design Overview
+      </div>
+      <div class="accordion-content">
+        <h3>How has the relationship between a country’s economic growth (GDP/GDP per capita) and its energy consumption (primary or per capita) changed from 1993 to 2023 across different regions and income classifications ?</h3>
+        <p>
+          This visualization explores how GDP, urbanization, and population
+          relate to energy consumption and emissions.
+        </p>
+
+        <h3>1. Data Loading</h3>
+        <ul>
+          <li>
+            CSV data is loaded using <code>d3.csv</code> and parsed into
+            <code>rawData</code>, those columns like year, gdp, co2, etc. will
+            be converted into numeric values.
+          </li>
+        </ul>
+
+        <h3>2. Controls & Interaction</h3>
+        <ul>
+          <li>
+            A year slider (yearSlider): Allows users to select a specific year
+            from 1993–2023. This updates all components (map, bubbles, scatter,
+            and line charts) to reflect the data from the selected year in real
+            time.
+          </li>
+          <li>
+            Region Dropdown: Lets users filter the dataset by geographic level:
+            globally, by continent (mapped to subregions), or by specific
+            subregions. This changes the scope for the map, scatter plot, and
+            line charts accordingly.
+          </li>
+          <li>
+            Then user can select an environmental metric dropdown to pick
+            includes CO₂, CO₂ per capita, methane, methane per capita, and
+            shared global CO₂; this will be the encoded colors of the map as a
+            choropleth.
+          </li>
+          <ol>
+            <li>Optional metrics:</li>
+            <li>
+              Choropleth Metric: Users can choose from “GDP per Capita,”
+              “Urbanization Rate,” “Population,” or “GDP Growth.” The “GDP
+              Growth” value is computed dynamically by referencing the previous
+              year.
+            </li>
+            <li>
+              Consumption Metric: Determines the bubble size and y-axis in the
+              scatter chart. Users toggle between “Primary Consumption” or
+              “Per-Capita Consumption.”
+            </li>
+            <li>
+              Income Class Toggle (Checkbox): Controls whether bubble color
+              encodes World Bank income classification . When enabled, each
+              income category gets its own color and legend interactivity.
+            </li>
+          </ol>
+          <li>
+            Another optional metric will be the bubble color encoding as an
+            extra channel; if the user ticks on the check box, then a drop-down
+            appears that allows the user to pick the economic metric (GDP, GDP
+            per capita, or Urbanization) for bubble color.
+          </li>
+        </ul>
+
+        <h3>3. Map & Bubbles and overview interation:</h3>
+        <ul>
+          <li>
+            When the user selects a region on the drop-down from the region
+            label, then depending on how global, region, or subregion mode, the
+            corresponding filtered data is shown. The map provides a high-level
+            geographic overview, with countries color-coded based on the
+            selected metric.The map supports quick regional comparison for
+            metrics like GDP or urbanization.
+          </li>
+          <li>
+             Logic of filtering / “Modes”The code checks your
+            selected region. If “Global,” it uses all countries. If a continent,
+            it uses subregions. If a subregion, it uses only that subregion.
+          </li>
+          <li>The code sets centerInfo for the map so the map can recenter.</li>
+          <li>
+            Each chart’s data is then re-filtered or regrouped based on the same
+            region mode.
+          </li>
+          <li>
+            A choropleth map will be zoomed into that region, subregion with
+            another part of the map will be whiteed out; this is the focus mode.
+            Then, the panel below provides an overview of basic visual design
+            with the corresponding mode.
+          </li>
+          <li>
+            A bubble trace, the bubble size is scaled based on “consumption
+            metric,” color is from income classification.Users can hover to view
+            tooltips with precise metric values. Legend toggling allows
+            isolating or hiding specific income categories (especially useful in
+            global mode).
+          </li>
+          <li>Below panel</li>
+          <li>            Scatter Plot (GDP vs Energy Consumption):
+        </li>
+
+          <ul>
+                <li>
+                X-axis: GDP, Y-axis: Chosen consumption metric (primary or
+                per-capita),
+                </li>
+                <li>Bubble Size: Scaled version of the same consumption metric</li>
+                <li>Bubble Color: Encodes income category if enabled</li>
+          </ul>
+          <li>
+            LineChart (1): Displays time-series trends of the selected consumption metric. Regional aggregation is applied over the years 1993–2023.
+        
+          </li>
+          <ul>
+            <li>Views differ based on dropdown:
+            </li>
+            <li>Global Mode: One line per continent (average values)
+                <li>                Continent Mode: One line for the continent + one for each subregion
+                </li>
+                <li>Subregion Mode: Lines for individual countries</li>
+            </li>
+
+            
+          </ul>
+
+          <li>
+            Line Chart (2): Same structure and behavior as the Line chart 1, but plots the metric used in the choropleth map (e.g., GDP per capita, urbanization) instead of energy consumption.
+
+          </li>
+         
+        </ul>
+        <h3>4. Dropdown / Checkbox Effects</h3>
+        <ul>
+            <li>Region Dropdown: Changes the scope of analysis across all views—global, continental, or subregional. This re-aggregates line charts and adjusts the scatter and map visibility accordingly.
+            </li>
+          <li>
+            Income Class Toggle (Checkbox):
+            When checked, adds category color coding for income groups in both map bubbles and scatter plots.
+            When unchecked, all bubbles are shown in a uniform color, simplifying the display.
+
+          </li>
+          <ol>
+            <li>            Consumption Toggle (Checkbox):
+            </li>
+            <li>Switches between primary and per-capita consumption metrics. Affects:
+            </li>
+            <li> Bubble size on the map
+            </li>
+            <li>Scatter plot y-axis</li>
+            <li>Line charts’ data series</li>
+           
+          </ol>
+          <li>
+            Slider & Metric Selection:
+            Both trigger re-filtering, re-binning, and dynamic re-rendering  which manages all redraws.
+            
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Q3 Accordion -->
+    <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          Q3 – Design Overview
+        </div>
+        <div class="accordion-content">
+          <h3>Which countries or regions have the lowest electricity access (especially rural vs. urban), and does a higher share of renewables correlate with improvements? </h3>
+          <p>
+            This dashboard examines disparities in electricity access, particularly between rural and urban populations, and investigates whether countries with a higher share of renewable electricity tend to perform better in improving access. It provides users with multiple coordinated views—including maps, scatter plots, animated timelines, and faceted time-series charts—to understand the spatial, economic, and developmental patterns of electricity access over time.
+          </p>
+      
+          <h3>2. Controls & User Interaction</h3>
+          <ul>
+            <li>
+              Year Slider: Users can select a specific year (1993–2023). This updates all visual components, including maps, comparison charts, and animated views.
+            </li>
+            <li>
+              Region Dropdown: Filters the data based on the user's selected scope:
+              <ul>
+                <li>Global: Includes all countries.</li>
+                <li>Continent: Filters to subregions within the selected continent.</li>
+                <li>Subregion: Limits the display to countries within the selected subregion.</li>
+              </ul>
+              The regional scope impacts all maps, scatter plots, and faceted views.
+            </li>
+            <li>
+              Access Type Selector: Allows switching between “Urban Electricity Access” and “Rural Electricity Access.” This determines which dataset attribute is visualized across the dashboard.
+            </li>
+            <li>
+              Bubble Overlay Toggle: When enabled, displays bubbles on the choropleth map. These bubbles reflect:
+              <ul>
+                <li>Size: Based on electricity generation or demand, scaled with a custom function.</li>
+                <li>Color: Can optionally encode an economic metric such as income class or GDP per capita.</li>
+              </ul>
+            </li>
+            <li>
+              Overview Option (Radio Buttons): Enables or hides the chart panel below the map. When active, it shows additional contextual visualizations such as time-series comparisons and animated scatter plots.
+            </li>
+          </ul>
+      
+          <h3>3. Map & Bubbles Interaction</h3>
+          <ul>
+            <li>
+              Choropleth Maps: Two separate maps are created—one for urban access and one for rural access. Each map has its own binning function and custom color scale to match the domain of the data.
+            </li>
+            <li>
+              Bubble Overlays:
+              <ul>
+                <li>Bubbles are drawn using <code>scattergeo</code> on top of the choropleth map.</li>
+                <li>Size: Computed from user-selected metrics like per capita electricity generation or demand.</li>
+                <li>Color: May represent income category or other economic indicator if enabled.</li>
+                <li>This multi-encoding approach enhances the user's ability to explore economic and access-related disparities geographically.</li>
+              </ul>
+            </li>
+            <li>
+              Map Interaction: All map components respond to dropdown, slider, and checkbox inputs, and automatically recenter based on selected region.
+            </li>
+          </ul>
+      
+          <h3>4. Charts Below the Map</h3>
+          <ul>
+            <li>
+              Comparison Mode (Side-by-Side Layout): Includes charts for direct rural-urban comparison:
+              <ul>
+                <li>Line Charts: Show historical access rates (1993–2023) by urban vs. rural classification.</li>
+                <li>Bar Charts: Visualize access gaps for selected year across regions.</li>
+                <li>Scatter Plots:
+                  <ul>
+                    <li>% Renewable Electricity vs. Urban Access</li>
+                    <li>% Renewable Electricity vs. Rural Access</li>
+                    <li>Per Capita Generation vs. Per Capita Consumption</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              Overview Mode (Animated Views):
+              <ul>
+                <li>Animated Scatter Plots: Show access changes over time using frame-based transitions.</li>
+                <li>Examples include:
+                  <ul>
+                    <li>Urban vs. Rural Access animation across years</li>
+                    <li>Generation vs. Consumption trends over time</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              Drill-Down Mode (Faceted Views):
+              <ul>
+                <li>Small Multiples: Faceted line and bar charts grouped by continent, subregion, or country.</li>
+                <li>Used to explore trends for each group or country individually over time.</li>
+              </ul>
+            </li>
+          </ul>
+      
+          <h3>5. Dropdown / Checkbox Effects</h3>
+          <ul>
+            <li>
+              Access Type Selector: Switches the dataset field used throughout the dashboard (e.g., from rural access to urban access), triggering data re-binning and updated legends.
+            </li>
+            <li>
+              Region Dropdown: Filters and groups the data dynamically. It affects how charts are grouped:
+              <ul>
+                <li>Global: Groups by continent</li>
+                <li>Continent: Groups by subregion</li>
+                <li>Subregion: Groups by country</li>
+              </ul>
+            </li>
+            <li>
+              Bubble Overlay Toggle: Activates or hides the bubble layer. When active, metric dropdowns for size and color control the bubble appearance.
+            </li>
+            <li>
+              Metric Dropdowns: 
+              <ul>
+                <li>One for choosing bubble size (e.g., generation or demand)</li>
+                <li>Another (optional) for choosing bubble color (e.g., income level)</li>
+              </ul>
+              These enable multilayer analysis of economic and energy indicators.
+            </li>
+            <li>
+              Overview Toggle: When enabled, shows additional charts for comparative and trend analysis. These visualizations update based on user input from sliders and region selectors.
+            </li>
+          </ul>
+        </div>
+      </div>
+    <!-- Q4 Accordion -->
+    <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          Q4 –  Design Overview
+        </div>
+        <div class="accordion-content">
+          <h3> How does GDP per capita growth relate to electricity access and clean fuel access improvements? </h3>
+          <p>
+            This dashboard investigates whether improvements in economic development—measured by GDP per capita—are associated with gains in electricity access and access to clean fuels for cooking. It allows users to switch between these two core access indicators and explore their relationship with economic performance and renewable energy deployment. The tool supports both regional and temporal exploration with interactive and coordinated multi-view visualizations.
+          </p>
+      
+          <h3>2. Controls & User Interaction</h3>
+          <ul>
+            <li>
+              Year Slider: Allows users to select a specific year. All views—maps, detail cards, scatter plots, bar charts, and faceted charts—are updated with filtered data for the selected year.
+            </li>
+            <li>
+              Region Dropdown: Enables selection of scope: "Global", individual continents, or subregions. This drives geographic filtering across the dashboard.
+              <ul>
+                <li>Global: Displays all countries.</li>
+                <li>Continent: Filters to subregions within the selected continent.</li>
+                <li>Subregion: Shows only countries within the selected subregion.</li>
+              </ul>
+            </li>
+            <li>
+              Fuel Type Selector: Lets users toggle between “Electricity Access” and “Clean Fuel Access”. The selected value determines which metric is used in choropleth and all charts, including how it is binned and mapped to color.
+            </li>
+            <li>
+              Bubble Overlay Toggle: When enabled, activates an additional bubble layer on the choropleth map. Bubble size is derived from a selected economic metric (e.g., GDP, GDP per capita).
+            </li>
+            <li>
+              Bubble Color Metric Toggle: A conditional dropdown lets users select a second metric (e.g., income group or urbanization) that determines bubble color, using a custom binning function.
+            </li>
+            <li>
+              Overview Option (Radio Buttons): Determines whether an overview panel with multiple charts is shown. When selected, faceted line/bar/pie charts and scatter plots (static or animated) are displayed below the map and are responsive to filtering and year selection.
+            </li>
+          </ul>
+      
+          <h3>3. Map & Bubbles Interaction</h3>
+          <ul>
+            <li>
+              Choropleth Map: Displays either urban electricity access or clean fuel access based on fuel type selection. Custom color scales and binning logic are used for visual clarity.
+            </li>
+            <li>
+              Bubble Overlays:
+              <ul>
+                <li>When enabled, bubbles are drawn using Plotly’s <code>scattergeo</code> traces.</li>
+                <li>Size: Computed from a selected economic metric like GDP or population.</li>
+                <li>Color: Optionally represents a second metric (e.g., income classification).</li>
+                <li>Multi-layered visual encoding provides insight into economic-environmental relationships across space.</li>
+              </ul>
+            </li>
+            <li>
+              Detail Card & Donut Charts: Clicking on a country displays a detail panel with:
+              <ul>
+                <li>Country metadata (name, region, population, GDP, etc.)</li>
+                <li>Donut charts visualizing that country’s electricity access, clean fuel access, and renewable energy share.</li>
+              </ul>
+            </li>
+          </ul>
+      
+          <h3>4. Charts Below the Map</h3>
+          <ul>
+            <li>
+              Overview Panel (Rendered When Enabled): A set of coordinated charts displayed below the map:
+              <ul>
+                <li>Faceted Line Charts:Show time-series trends for access metrics from 1993–2022, grouped by continent, subregion, or country depending on the selected region mode.</li>
+                <li>Bar Charts: Show grouped comparisons of access metrics for the selected year.</li>
+                <li>Faceted Pie Charts: Represent average renewable energy share by group (continent, subregion, or country).</li>
+                <li>Scatter Plots:
+                  <ul>
+                    <li>Electricity or Clean Fuel Access vs. GDP per capita</li>
+                    <li>Access vs. Renewables Share</li>
+                  </ul>
+                </li>
+                <li>Animated Scatter Plots: Visualize temporal changes across years using frame-based animation (e.g., electricity generation vs. consumption, renewables vs. access).</li>
+              </ul>
+            </li>
+          </ul>
+      
+          <h3>5. Dropdown / Checkbox Effects</h3>
+          <ul>
+            <li>
+              Fuel Type Selector: Determines whether electricity access or clean fuel access is visualized. This affects:
+              <ul>
+                <li>Map choropleth coloring and legends</li>
+                <li>Faceted charts below the map</li>
+                <li>Detail cards and donut charts</li>
+              </ul>
+            </li>
+            <li>
+              Region Dropdown:Triggers geographic filtering and mode-based grouping across the entire dashboard.
+              <ul>
+                <li>Global Mode:Groups by continent</li>
+                <li>Continent Mode: Groups by subregion</li>
+                <li>Subregion Mode: Groups by country</li>
+              </ul>
+            </li>
+            <li>
+             Bubble Overlay Toggle: Activates an additional visual encoding on the map using bubble size (from a selected economic metric).
+            </li>
+            <li>
+              Bubble Color Metric:Provides an additional conditional dropdown to apply a secondary encoding using a color scale. This enables the map to show an added layer of categorization (e.g., income class).
+            </li>
+            <li>
+              Overview Radio Button: Displays or hides the panel of additional charts (faceted, time series, animated). These views enhance exploratory analysis and narrative storytelling.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    <script>
+      function toggleAccordion(element) {
+        const parent = element.parentElement;
+        parent.classList.toggle("active");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Q3: Electricity Access & Renewables Visual Design</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link rel="stylesheet" href="css/Q3.css" />
+    <script src="js/Q3.js" defer></script>
+    <style></style>
+  </head>
+  <body>
+    <h3>
+      Which countries or regions have the lowest electricity access (especially
+      rural vs. urban), and does a higher share of renewables correlate with
+      improvements in that access gap over time?
+    </h3>
+
+    <div class="controls">
+      <label>
+        <select id="fuelTypeSelect">
+          <option value="electricity" selected>Electricity Access</option>
+        </select>
+      </label>
+      <div class="form-group slider-group">
+        <button for="yearSlider" class="year-label">Year:</button>
+
+        <input
+          type="range"
+          id="yearSlider"
+          class="year-slider"
+          min="1993"
+          max="2023"
+          step="1"
+          value="1993"
+        />
+        <span id="yearLabel" class="year-display">2000</span>
+      </div>
+
+      <!-- Region -->
+      <label>
+        Region:
+        <select id="regionSelect"></select>
+      </label>
+
+      <!-- Checkboxes + conditional selects -->
+      <label>
+        <input type="checkbox" id="sizeMetricCheck" />
+        Generation/Demand metric
+      </label>
+      <select id="sizeMetricSelectConditional" style="display: none">
+        <option value="per_capita_electricity">
+          Electricity Generation PC
+        </option>
+        <option value="electricity_demand_per_capita">
+          Electricity Demand PC
+        </option>
+      </select>
+
+      <label style="margin-left: 20px">
+        <input type="checkbox" id="colorMetricCheck" />
+        %Share of renewables / Net import metric
+      </label>
+      <select id="colorMetricSelectConditional" style="display: none">
+        <option value="renewables_share_elec">%Renewables Elec</option>
+        <option value="net_elec_imports_share_demand">
+          %Net Electricity Import
+        </option>
+      </select>
+    </div>
+
+    <div id="bubbleLegendContainer"></div>
+
+    <div id="mapContainer">
+      <div id="urbanMap" class="mapDiv"></div>
+      <div id="ruralMap" class="mapDiv"></div>
+    </div>
+
+    <div class="controls" id="trendOption">
+      <label>Trend Option:</label>
+      <input
+        type="radio"
+        id="trendComparison"
+        name="trendOptionGroup"
+        value="comparison"
+        checked
+      />
+      <label for="trendComparison">Comparison</label>
+      <input
+        type="radio"
+        id="trendOverall"
+        name="trendOptionGroup"
+        value="overall"
+      />
+      <label for="trendOverall">Overall Trend</label>
+    </div>
+
+    <div id="drilldownPanel">
+      <div id="trendContainer"></div>
+    </div>
+    <div id="overallCharts"></div>
+    <div id="sharedLegend"></div>
+  </body>
+</html>

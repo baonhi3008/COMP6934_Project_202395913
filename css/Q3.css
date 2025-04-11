@@ -1,0 +1,192 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #fff;
+  }
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+  }
+
+  /* Container “card” for each row of controls */
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap; 
+  }
+  .controls label {
+    font-weight: 500;
+    display: flex; 
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0;
+  }
+  .controls select,
+  .controls input[type="range"],
+  .controls input[type="checkbox"],
+  .controls input[type="radio"] {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background-color: #fff;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  /* Slider styles to match the “blue thumb” look */
+  .slider-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .slider-label {
+    background-color: #3971cc;
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .styled-slider {
+    width: 200px;
+    height: 6px;
+    background: #e0e0e0;
+    outline: none;
+    border-radius: 3px;
+    margin: 0;
+  }
+
+  .styled-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #4285f4;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  }
+  .styled-slider::-webkit-slider-runnable-track {
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+  }
+  .styled-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #4285f4;
+    border-radius: 20%;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  }
+  .styled-slider::-moz-range-track {
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+  }
+
+  .slider-value-bubble {
+    background-color: #e6e6e6;
+    color: #333;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    min-width: 40px;
+    text-align: center;
+  }
+  .year-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row;
+  }
+  .year-label {
+    padding: 6px 12px;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: default;
+  }
+
+  .year-slider {
+    flex: 1;
+    max-width: 200px;
+  }
+
+  .year-display {
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: #e8e8e8;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    color: #333;
+    cursor: default;
+  }
+
+
+  /* For Firefox */
+  #yearSlider::-moz-range-track {
+    height: 6px;
+    background: #ddd;
+    border-radius: 4px;
+  }
+  #yearSlider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #4285f4;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    cursor: pointer;
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+  } 
+  .controls input[type="checkbox"],
+  .controls input[type="radio"] {
+    transform: translateY(1px);
+  }
+
+  /* Map container */
+  #mapContainer {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  #urbanMap,
+  #ruralMap {
+    flex: 1;
+    width: 50%;
+    height: 400px;
+  }
+
+  /* Drilldown and trend container */
+  #trendContainer {
+    width: 100%;
+    min-height: 900px;
+    margin-top: 20px;
+  }
+  #urbanPanel,
+  #ruralPanel {
+    height: 700px;
+  }
+
+  /* Additional spacing for legends and charts */
+  #overallCharts,
+  #sharedLegend,
+  #bubbleLegendContainer {
+    margin-top: 20px;
+  }

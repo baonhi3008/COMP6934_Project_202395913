@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Q1</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link rel="stylesheet" href="css/Q2.css" />
+    <script src="js/Q2.js" defer></script>
+
+    <style></style>
+  </head>
+  <body>
+    <div class="header">
+      <h2>
+        “Question1: In the context of rising urbanization and economic growth
+        from 1993 to 2023, how have energy consumption and CO₂ emission changed
+        across regions, and do shifts in the fossil versus renewable energy
+        shares suggest meaningful mitigation of emissions growth?”
+      </h2>
+      <h3>Instructions:</h3>
+
+      <p>
+        <li>A year slider (yearSlider) to pick a year between 1993–2022.</li>
+        <li>
+          The user selects a region dropdown to pick “Global,” a continent, or a
+          subregion.
+        </li>
+        <li>
+          user can select an environmental metric dropdown to pick includes CO₂,
+          CO₂ per capita, methane, methane per capita, and shared global CO₂;
+          this will be
+          <strong>encoded colors of the map as a choropleth.</strong>
+        </li>
+        <li>
+          Optional metrics, when displayed, depend on user choice. If the user
+          ticks on the show consumption checkbox, then a drop-down values
+          display allows the user to pick whether the bubble overlay on the map
+          shows a consumption metric (Primary vs. Per-Capita) for bubble size.
+        </li>
+        <li>
+          Another optional metric will be the bubble color encoding as an extra
+          channel; if the user ticks on the check box, then a drop-down appears
+          that allows the user to pick the economic metric (GDP, GDP per capita,
+          or Urbanization) for bubble color.
+        </li>
+        <li>
+          User can click on a country a detail card container will be displayed
+          with information about the that country metric values and some simple
+          visual design such as pie chart of energy type distribution, combine
+          chart show GDP growth and emission growth for that current year
+        </li>
+        <li>
+          The panel below will generate a dynamic multi-view dashboard with
+          scatter plots, line plots and faceted stacked area plots that can
+          provide overview and in-depth information for user to explore
+        </li>
+      </p>
+    </div>
+
+    <div class="controls">
+      <div class="control-row">
+        <div class="control-group">
+          <button for="yearSlider" class="year-label">Year:</button>
+          <input
+            type="range"
+            id="yearSlider"
+            class="year-slider"
+            min="1993"
+            max="2023"
+            step="1"
+            value="1993"
+          />
+          <span id="yearLabel" class="year-display">1993</span>
+        </div>
+        <div class="control-group">
+          <label for="regionSelect">Select Region:</label>
+          <select id="regionSelect"></select>
+        </div>
+        <!-- (Keep existing controls for envMetricSelect, showConsumption, consumptionSelect, colorMetricSelect, etc.) -->
+        <div class="control-group">
+          <label for="envMetricSelect">Environmental Metric:</label>
+          <select id="envMetricSelect">
+            <option value="co2_per_capita" selected>CO₂ per Capita</option>
+            <option value="co2">CO₂</option>
+            <option value="methane">Methane</option>
+            <option value="methane_per_capita">Methane per Capita</option>
+            <option value="share_global_co2">Share Global CO₂</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <input type="checkbox" id="showConsumption" checked />
+          <label for="showConsumption">Show Consumption Metric</label>
+        </div>
+        <div class="control-group" id="consumptionGroup">
+          <label for="consumptionSelect">Consumption Metric:</label>
+          <select id="consumptionSelect">
+            <option value="primary_energy_consumption" selected>
+              Primary Consumption
+            </option>
+            <option value="energy_per_capita">Per-Capita Consumption</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="colorMetricSelect" style="font-size: large"
+            >Bubble Color Metric:</label
+          >
+          <select id="colorMetricSelect">
+            <option value="gdp" style="font-size: large" selected>GDP</option>
+            <option value="gdp_per_capita">GDP per Capita</option>
+            <option value="pct_urban_population">Urbanization</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <input type="checkbox" id="showIncome" style="display: none" />
+        </div>
+      </div>
+    </div>
+    <div id="mapDiv" style="width: 100%; height: 600px"></div>
+    <div id="detailCardContainer"></div>
+    <div
+      id="scatterChart"
+      style="width: 100%; height: 400px; margin-top: 20px"
+    ></div>
+    <div
+      id="scatterChart2"
+      style="width: 100%; height: 400px; margin-top: 20px"
+    ></div>
+    <div
+      id="lineChart"
+      style="width: 100%; height: 400px; margin-top: 20px"
+    ></div>
+    <div
+      id="firstMetricLineChart"
+      style="width: 100%; height: 400px; margin-top: 20px"
+    ></div>
+    <div
+      id="multiStackAreaContainer"
+      style="width: 100%; margin-top: 20px"
+    ></div>
+  </body>
+</html>
